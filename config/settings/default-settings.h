@@ -21,7 +21,7 @@
 #include "setting.h"
 #include "setting-validators.h"
 
-#include <checking/validation-rules.h>
+#include <checking/validators.h>
 #include <core/main-config.h>
 #include <parsing/node.h>
 #include <utilities/bitwise.h>

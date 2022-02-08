@@ -1,6 +1,6 @@
 /**
- * @file validation-rules.h
- * @brief Rules used for validating values.
+ * @file validators.h
+ * @brief Validation functions used for validating values.
  * 
  * @version 1.0
  * @date December 2021
@@ -14,8 +14,8 @@
  * 
  * @copyright GPL-3.0 License
  */
-#ifndef CFG_CONFIG_CHECKING_VALIDATION_RULES_H
-#define CFG_CONFIG_CHECKING_VALIDATION_RULES_H
+#ifndef CFG_CONFIG_CHECKING_VALIDATORS_H
+#define CFG_CONFIG_CHECKING_VALIDATORS_H
 
 #include <errors/error-types.h>
 #include <strings/string-conversions.h>

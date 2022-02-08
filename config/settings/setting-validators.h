@@ -20,7 +20,7 @@
 #include "setting.h"
 
 #include <checking/validation-mode.h>
-#include <checking/validation-rules.h>
+#include <checking/validators.h>
 
 #include <string_view>
 #include <type_traits>
@@ -33,19 +33,18 @@
 namespace cfg {
 
 /**
- * @brief Dispatches a call to a @link validation-rules.h validation function @endlink
- * while providing a uniform call-signature.
+ * @brief Dispatches a call to a @link validators.h validation function @endlink while
+ * providing a uniform call-signature.
  * 
- * @details A different call-signature is wrapped around a @link validation-rules.h
- * validation function @endlink and its return value is converted to a @link
- * validate_result validation result @endlink that stores a @ref setting_data object.
- * The excess arguments are simply discarded. This function allows @ref setting objects
- * to be of the same type while using differently typed validators and validation
- * results.
+ * @details A different call-signature is wrapped around a @link validators.h validation
+ * function @endlink and its return value is converted to a @link validate_result
+ * validation result @endlink that stores a @ref setting_data object. The excess
+ * arguments are simply discarded. This function allows @ref setting objects to be of the
+ * same type while using differently typed validators and validation results.
  * 
- * @tparam Validator Reference to a @link validation-rules.h validation function @endlink
- * that takes a string-view argument and returns a type that can be implicitly converted
- * to a @link validate_result validation result @endlink that stores a @ref setting_data
+ * @tparam Validator Reference to a @link validators.h validation function @endlink that
+ * takes a string-view argument and returns a type that can be implicitly converted to a
+ * @link validate_result validation result @endlink that stores a @ref setting_data
  * object.
  * @tparam Ts Arbitrary number of optional argument types.
  * 
@@ -61,15 +60,15 @@ constexpr auto dispatch_validator(std::string_view value, validation_mode, Ts...
 { return Validator(value); }
 
 /**
- * @brief Dispatches a call to one of the @link validation-rules.h validation functions
+ * @brief Dispatches a call to one of the @link validators.h validation functions
  * @endlink while providing a uniform call-signature.
  * 
  * @details Which validation function is invoked depends on the given validation mode.
  * 
- * @tparam FileValidator Reference to a @link validation-rules.h validation function
- * @endlink with a string-view argument that is invoked when validating a config file.
- * @tparam MsgValidator Reference to a @link validation-rules.h validation function
- * @endlink with a string-view argument that is invoked when validating a config message.
+ * @tparam FileValidator Reference to a @link validators.h validation function @endlink
+ * with a string-view argument that is invoked when validating a config file.
+ * @tparam MsgValidator Reference to a @link validators.h validation function @endlink
+ * with a string-view argument that is invoked when validating a config message.
  * @tparam Ts Arbitrary number of optional argument types.
  * 
  * @param[in] value Data-value to validate.
@@ -99,10 +98,10 @@ constexpr auto dispatch_validator(std::string_view value, validation_mode mode, 
  * @link validate_result validation result @endlink that stores a @ref setting_data
  * object.
  * 
- * Which @link validation-rules.h validation function @endlink will be invoked depends on
- * the given validation mode. When validating the value of a config message, the
- * underlying bits will first be converted to an integral value that matches the
- * instantiated type of this function.
+ * Which @link validators.h validation function @endlink will be invoked depends on the
+ * given validation mode. When validating the value of a config message, the underlying
+ * bits will first be converted to an integral value that matches the instantiated type
+ * of this function.
  * 
  * @tparam T Integral type of the @p MinMax arguments passed to a @ref validate_value
  * function.

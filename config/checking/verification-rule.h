@@ -1,6 +1,6 @@
 /**
  * @file verification-rule.h
- * @brief 
+ * @brief Defines how a main configuration object should be verified for correctness.
  *
  * @version 1.0
  * @date January 2022
@@ -36,8 +36,8 @@ namespace cfg {
 /**
  * @struct verification_rule
  *
- * @brief Verifies a main configuration with the use of a given verification rule.
- * S
+ * @brief Verifies a main configuration object with the use of a given verifier-function.
+ * 
  * @tparam Verifier Type of the verifier-function.
  */
 template<typename Verifier>
@@ -64,7 +64,7 @@ public:
     {}
 
     /**
-     * @brief Verifies a verification rule.
+     * @brief Verifies a configuration object with its verifier-function.
      * 
      * @tparam MainConfig Data-structure type of the configuration object.
      * @tparam Ts Types of the optional arguments.
