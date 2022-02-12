@@ -1,6 +1,6 @@
 /**
  * @file verification-rule.h
- * @brief Defines how a main configuration object should be verified for correctness.
+ * @brief Defines how (part of) a given configuration should be verified for correctness.
  *
  * @version 1.0
  * @date January 2022

@@ -53,21 +53,21 @@ public:
      * 
      * @brief Minimum size of a bitspan, in number of bits.
      */
-    static constexpr auto min_size = 1;
+    static constexpr auto min_size = 1u;
 
     /**
      * @var max_size
      * 
      * @brief Maximum size of a bitspan, in number of bits.
      */
-    static constexpr auto max_size = 64;
+    static constexpr auto max_size = 64u;
 
     /**
      * @var boundary
      * 
      * @brief Boundary of the bitspan, in number of bytes.
      */
-    static constexpr auto byte_boundary = 64;
+    static constexpr auto byte_boundary = 64u;
 
     /**
      * @var make
@@ -159,10 +159,10 @@ template<typename T, typename View,
     typename = std::enable_if_t<std::is_integral_v<T>>>
 [[nodiscard]]
 constexpr auto convert_bits(View value) -> T {
-    if (std::size(value) <= sizeof(T)) return T{};
+    if (std::size(value) > sizeof(T)) return T{};
 
-    T result;
-    std::memcpy(&result, std::data(value), sizeof(T));
+    auto result = T{};
+    std::memcpy(&result, std::data(value), std::size(value));
     return result;
 }
 
@@ -184,13 +184,13 @@ constexpr auto convert_bits(View value) -> T {
 template<typename T,
     typename = std::enable_if_t<(sizeof(T) == sizeof(std::byte))>>
 [[nodiscard]]
-constexpr auto extract_bits(T const* source, bitspan bits)
+constexpr auto extract_bits(T const source[], bitspan bits)
 -> std::uint_fast64_t {
     auto const mask = 0b1111'1111u;
     auto const width = 8u;
-    auto result = std::uint_fast64_t{0};
-    auto pos = unsigned{bits.pos()};
-    auto size = unsigned{bits.size()};
+    auto result = std::uint_fast64_t{};
+    unsigned pos{bits.pos()};
+    unsigned size{bits.size()};
     auto offset = pos % width;
     auto const count = (size + offset - 1) / width;
     auto const start = pos / width;
